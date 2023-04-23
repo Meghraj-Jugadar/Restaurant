@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/static/css/admin_style.css" rel="stylesheet">
+     <style>
+            body {
+                  background: rgb(154,162,83);
+background: radial-gradient(circle, rgba(154,162,83,1) 0%, rgba(0,0,0,1) 100%);
+                }
+        </style>
+</head>
+<body>
+
+<!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-light navbar-light">
+            <div class="container-fluid">
+                <a href="/order_data" class="navbar-brand">Order Data</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="/ord_report" class="nav-item nav-link">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br><br><br>
+        <!-- Nav Bar End -->
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2"></div>
+
+            <!-- content goes here -->
+            <div class="col-sm-8">
+                <h4 style="color:White;">Customer Order Details :</h4>
+                {% for data in custoer_data %}
+                    <label style="color:White;">Name :{{data[1]}}</label><br>
+                    <label style="color:White;">Number :{{data[2]}}</label><br>
+
+
+                <form action="{{ url_for('order_data', id_data=data[2]) }}" method="POST">
+                            <div class="form-group">
+                                <input style="width:30%;" type="text" name="search" class="form-control" id="search" placeholder="Search by date....">
+                                <button class="btn btn-primary float-left" >Search</button>
+                            </div>
+
+                {% endfor %}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Dish</th>
+            <th scope="col">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in cart_data %}
+        <tr>
+        <td>{{data[7]}}</td>
+        <td>{{data[2]}}</td>
+        <td>{{data[4]}}</td>
+    </tr>
+{% endfor %}
+    </tbody>
+
+</table>
+                </form>
+            </div>
+            <!-- Content ends here-->
+            <div class="col-sm-2"></div>
+
+        </div>
+    </div>
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title> Admin Registration </title>
+        <link rel="stylesheet" href="/static/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/static/js/script.js"></script>
+    </head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}" id="hideMe">
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <div class="title">Registration</div>
+            <div class="content">
+                <form action="/admin_register" method="post">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">User Name</span>
+                            <input type="text" name="name" id="name" placeholder="Enter your user name" pattern="^[A-Za-z]+$" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">User Type</span>
+                            <input type="text" name="type" id="type" pattern="[A-Za-z ]{1,30}" placeholder="Enter user type "  required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Password</span>
+                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Confirm Password</span>
+                            <input type="text" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Register">
+                    </div>
+                    <p><a href="/admin_login">Log In</a></p>
+                </form>
+            </div>
+    </div>
+</body>
+</html>

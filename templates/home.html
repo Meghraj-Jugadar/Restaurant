@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Customer</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Nunito:600,700" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="/static/css/customer.css" rel="stylesheet">
+        <style>
+            body{
+            background: rgb(12,124,121);
+            background: radial-gradient(circle, rgba(12,124,121,1) 0%, rgba(39,33,142,1) 100%);
+        }
+        </style>
+    </head>
+
+    <body>
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-light navbar-light">
+            <div class="container-fluid">
+                <a href="/home" class="navbar-brand">Home </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Menu</a>
+                            <div class="dropdown-menu">
+                                <a href="/veg_list" class="dropdown-item">Veg</a>
+                                <a href="/nonveg_list" class="dropdown-item">Non-veg</a>
+                                <a href="/dessert_list" class="dropdown-item">Dessert</a>
+                            </div>
+                        </div>
+                        <a href="/cart" class="nav-item nav-link">Cart</a>
+                        <a href="/contact" class="nav-item nav-link">Contact Us</a>
+                        <a href={{url_for('cust_logout')}} class="nav-item nav-link">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+        <br><br><br><br>
+
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2"></div>
+
+            <!-- content goes here -->
+            <div class="col-sm-8">
+                <h2 style="color:White;">Order Details <a href="/cart"><button class="btn btn-primary float-right" >Modify</button></a></h2>
+
+{%with messages = get_flashed_messages()%}
+{%if messages%}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{message}}
+</div>
+{%endfor%}
+{%endif%}
+{%endwith%}
+
+
+
+
+    <!-- Enter New  Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" style="align-content: center;">Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+
+                <div class="modal-body">
+
+                    <form action="{{ url_for('pay')}}" method="POST">
+                        {% for customer in custdata %}
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input value="{{customer[1]}}" name="Name" type="text" class="form-control" id="name" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Number</label>
+                            <input value="{{customer[2]}}" name="number" type="number" class="form-control" id="number" readonly>
+                        </div>
+                        {% endfor %}
+                        {% for data in orddata %}
+                        <div class="form-group">
+                            <input value="{{ data[5] }}" name="ord_id" type="hidden" class="form-control" id="ord_id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input value="{{ data[4] }}" name="amt" type="text" class="form-control" id="amt" readonly>
+                        </div>
+                        {% endfor %}
+                        <div class="form-group">
+                            <label>Copy the given UPI ID</label>
+                            <input value="kadamtejas871@oksbi" name="upi_id" type="text" class="form-control" id="upi_id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Through</label>
+                            <select id="mt" class="option" name="mt">
+                                    <option disabled selected value="">Select App</option>
+                                    <option value="PhonePe">PhonePe</option>
+                                    <option value="GPay">GPay</option>
+                                    <option value="Paytm">Paytm</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Submit UTR No. or Ref. ID</label>
+                            <input name="utr" type="number" class="form-control" id="utr"  min="111111111111" max="999999999999" placeholder="Enter 12 digit UTR or Ref. that you copied." pattern="[1-9]{1}[0-9]{12}" required>
+                        </div>
+                        <div class="form-group">
+                            <label></label>
+                            <input value="Paid" name="pay_status" type="hidden" class="form-control" id="pay_status" readonly>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Payment</button>
+
+                      </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- End of Enter Modal -->
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Number</th>
+            <th scope="col">Date & Time</th>
+            <th scope="col">Table No</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in custdata %}
+        <tr>
+        <td data-label="Name">{{customer[1]}}</td>
+        <td data-label="Number">{{customer[2]}}</td>
+        {% endfor %}
+        {% for data in orddata %}
+        <td data-label="Date & Time">{{data[1]}} & {{data[2]}}</td>
+        <td data-label="Table No">{{data[3]}}</td>
+
+        <td>
+            <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledit">View</a>
+            <a href="{{ url_for('cancel_order', order_id=data[5]) }}" onclick="return confirm('Are Sure Want To Deleted ?')" class="btn btn-danger btn-sm">Cancel</a>
+        </td>
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+
+     <!-- Enter Modal -->
+        <div id="modaledit" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title text-primary" style="align-content: center;">Order Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Sub Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for items in cart_data %}
+                                <tr>
+                                    <td data-label="Item Name">{{items[2]}}</td>
+                                    <td data-label="Price">{{items[3]}}</td>
+                                    <td data-label="Quantity">{{items[4]}}</td>
+                                    <td data-label="Sub Total">{{items[5]}}</td>
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                        {% for data in orddata %}
+                        <div class="form-group">
+                            <label style="float:right;font-size:20px;">Total: {{ data[4] }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Edit Student Modal -->
+
+
+
+
+        <div class="col-sm-13">
+            <h2 style="color:White;">Payment Request<button class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">Request</button></h2>
+        </div>
+                <br><br>
+        <div class="col-sm-8">
+            <h4 style="color:White;">Payment Status :</h4>
+            {% for data in payment_data %}
+                <label style="color:White;">Status :{{data[7]}}</label><br>
+                <label style="color:White;">Amount :{{data[6]}}</label><br>
+                <label style="color:White;">Method :{{data[3]}}</label><br>
+                <label style="color:White;">UTR :{{data[0]}}</label><br>
+            {% endfor %}
+        </div>
+            </div>
+
+            <!-- Content ends here-->
+            <div class="col-sm-2"></div>
+
+        </div>
+    </div>
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <script src="/static/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

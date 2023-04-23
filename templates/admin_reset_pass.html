@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title> CustomerRegistration </title>
+        <link rel="stylesheet" href="/static/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/static/js/script.js"></script>
+    </head>
+<body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}" id="hideMe">
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <div class="container">
+        <div class="title">Reset Password</div>
+            <div class="content">
+                <form action="/admin_reset_pass" method="post">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">New Password</span>
+                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Confirm Password</span>
+                            <input type="text" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+</body>
+</html>

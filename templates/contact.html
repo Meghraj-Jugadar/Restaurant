@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+   <!-- <title> Responsive Contact Us Form  | CodingLab </title>-->
+<link rel="stylesheet" href="/static/css/contact.css">    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Contact Us</title>
+      <script src="/static/js/script.js"></script>
+      <style>
+          body{
+            background: rgb(126,235,51);
+background: radial-gradient(circle, rgba(126,235,51,1) 0%, rgba(74,68,68,1) 100%);
+          }
+      </style>
+   </head>
+<body>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}" id="hideMe">
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="content">
+            <div class="left-side">
+                <div class="address details">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="topic">Address</div>
+                    <div class="text-one">Karad </div>
+                    <div class="text-two">SGM College</div>
+                </div>
+                <div class="phone details">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="topic">Phone</div>
+                    <div class="text-one">7070010848</div>
+                    <div class="text-two">7219374045</div>
+                </div>
+                <div class="email details">
+                    <i class="fas fa-envelope"></i>
+                    <div class="topic">Email</div>
+                    <div class="text-one">meghrajpatil848@gmail.com</div>
+                    <div class="text-two">kadamtejas871@gmail.com</div>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="topic-text">Send us a message</div>
+                    <p>Give Your Feedback . . .</p>
+                    <form action="/contact" method="POST">
+                        <div class="input-box">
+                            <input type="text" name="name" id="name" placeholder="Enter your full name" pattern="^[a-zA-Z]+(\s[a-zA-Z]+){1,2}$" required>
+                        </div>
+                        <div class="input-box">
+                            <input type="tel" name="number" id="number" placeholder="Enter your number" pattern="[6-9]{1}[0-9]{9}" required>
+                        </div>
+                        <div class="input-box message-box">
+                            <textarea id="message" name="message" rows="5" cols="30" required></textarea>
+                        </div>
+                        <div class="button">
+                            <input type="submit" value="Send Now" >   <a href="/home"><input type="button" value="Home" ></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

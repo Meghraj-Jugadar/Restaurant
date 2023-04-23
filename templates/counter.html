@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Admin</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Nunito:600,700" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="/static/css/admin_style.css" rel="stylesheet">
+        <style>
+            body {
+                  background-image: url('/static/image/img1.jpg');
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                }
+        </style>
+
+    </head>
+
+    <body>
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-light navbar-light">
+            <div class="container-fluid">
+                <a href="counter.html" class="navbar-brand">Counter</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Menu</a>
+                            <div class="dropdown-menu">
+                                <a href="/veg_edit" class="dropdown-item">Veg</a>
+                                <a href="/nonveg_edit" class="dropdown-item">Non-veg</a>
+                                <a href="/dessert_edit" class="dropdown-item">Dessert</a>
+                            </div>
+                        </div>
+                        <a href="/kitchen" class="nav-item nav-link">Kitchen</a>
+                        <a href="/cust_data" class="nav-item nav-link">Customers</a>
+                        <a href="/staff_regist" class="nav-item nav-link">Staff</a>
+                        <a href="/report" class="nav-item nav-link">Reports</a>
+                        <a href="/admin_logout" class="nav-item nav-link">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+        <br><br><br><br><br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2"></div>
+
+            <!-- content goes here -->
+                    <div class="col-sm-8">
+                        <h4 style="color:Tomato;">Today is {{day_name}} [{{date}}]</h4>
+                        <h4 style="color:Tomato;"> Received Payment</h4>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Number</th>
+                                    <th scope="col">Table No.</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">UTR</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Method</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in payment_data %}
+                                    <tr>
+                                        <td>{{data[0]}}</td>
+                                        <td>{{data[1]}}</td>
+                                        <td>{{data[2]}}</td>
+                                        <td>{{data[3]}}</td>
+                                        <td>{{data[4]}}</td>
+                                        <td>{{data[5]}}</td>
+                                        <td>{{data[6]}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+            <!-- Content ends here-->
+                <div class="col-sm-2"></div>
+            </div>
+        </div>
+
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/lib/easing/easing.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="/static/js/main.js"></script>
+    </body>
+</html>

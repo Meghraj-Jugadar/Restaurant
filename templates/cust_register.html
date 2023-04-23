@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title> CustomerRegistration </title>
+        <link rel="stylesheet" href="/static/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/static/js/script.js"></script>
+    </head>
+<body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}" id="hideMe">
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <div class="container">
+        <div class="title">Registration</div>
+            <div class="content">
+                <form action="/" method="post">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">Full Name</span>
+                            <input type="text" name="name" id="name" placeholder="Enter your name" pattern="^[a-zA-Z]+(\s[a-zA-Z]+){1,2}$" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Phone Number</span>
+                            <input type="tel" name="number" id="number" placeholder="Enter your number" pattern="[6-9]{1}[0-9]{9}" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Password</span>
+                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Confirm Password</span>
+                            <input type="text" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Register">
+                    </div>
+                    <p>If already have registered? <a href="/cust_login">login now</a><!--a href="/admin_login" style="float:right;">Admin</a--></p>
+                </form>
+            </div>
+        </div>
+</body>
+</html>
