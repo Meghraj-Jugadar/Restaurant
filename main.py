@@ -5,10 +5,10 @@ import uuid
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_HOST'] = 'restaurant-db.cayhces9dwjt.us-west-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Monu848'
-app.config['MYSQL_DB'] = 'restaurant'
+app.config['MYSQL_PASSWORD'] = 'Welcome1234'
+app.config['MYSQL_DB'] = 'restaurant-db'
 
 mysql = MySQL(app)
 app.secret_key = 'myKey'
